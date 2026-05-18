@@ -45,8 +45,8 @@ noBtn.addEventListener("mouseover", () => {
 
 yesBtn.addEventListener("click", () => {
   document.body.innerHTML = `
-    <h1>Yayyyy 🥰💖</h1>
-    <p>You are officially my Valentine 😍</p>
+    <h1>Yayyyy 🎉🎉🎆🎆✨✨</h1>
+    <p>Please text me back 👩‍💻👩‍💻😬</p>
   `;
 });
 
