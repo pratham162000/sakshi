@@ -31,20 +31,20 @@ function moveNoButton() {
   const noBtnRect = noBtn.getBoundingClientRect();
   const yesBtnRect = yesBtn.getBoundingClientRect();
   
-  // Calculate safe movement range (smaller on mobile)
+  // Calculate safe movement range (MUCH smaller on mobile)
   const isMobile = viewportWidth < 768;
-  const maxMoveX = isMobile ? 60 : 100;
-  const maxMoveY = isMobile ? 60 : 100;
+  const maxMoveX = isMobile ? 40 : 100;  // Reduced from 60 to 40
+  const maxMoveY = isMobile ? 50 : 100;  // Reduced from 60 to 50
   
   let x, y, isOverlapping;
   let attempts_to_find_position = 0;
-  const maxAttempts = 20;
+  const maxAttempts = 30;  // Increased from 20 to 30
 
   // Keep trying to find a position that doesn't overlap with YES button
   do {
     x = Math.random() > 0.5 
-      ? Math.random() * maxMoveX + 30 
-      : -(Math.random() * maxMoveX + 30);
+      ? Math.random() * maxMoveX + 20 
+      : -(Math.random() * maxMoveX + 20);
     y = Math.random() > 0.5 
       ? Math.random() * maxMoveY + 30 
       : -(Math.random() * maxMoveY + 30);
@@ -52,11 +52,11 @@ function moveNoButton() {
     // Calculate new position
     const newLeft = noBtnRect.left + x;
     const newTop = noBtnRect.top + y;
-    const newRight = newLeft + noBtnRect.width;
-    const newBottom = newTop + noBtnRect.height;
+    const newRight = newLeft + noBtnRect.width * (1 - attempts * 0.15);
+    const newBottom = newTop + noBtnRect.height * (1 - attempts * 0.15);
     
-    // Check if overlapping with YES button (with padding)
-    const padding = 20;
+    // Check if overlapping with YES button (with MORE padding on mobile)
+    const padding = isMobile ? 40 : 20;  // Increased padding for mobile
     isOverlapping = !(
       newRight + padding < yesBtnRect.left ||
       newLeft - padding > yesBtnRect.right ||
@@ -68,12 +68,13 @@ function moveNoButton() {
   } while (isOverlapping && attempts_to_find_position < maxAttempts);
 
   // Scale down NO button
-  const noScale = Math.max(0.3, 1 - attempts * 0.15);
+  const noScale = Math.max(0.4, 1 - attempts * 0.12);  // Changed from 0.3 to 0.4
   noBtn.style.transform = `translate(${x}px, ${y}px) scale(${noScale})`;
-  noBtn.style.zIndex = "5"; // Lower than YES button
+  noBtn.style.zIndex = "5";
 
-  // Grow YES button and keep it on top
-  const yesScale = 1 + attempts * 0.12;
+  // Grow YES button (LIMITED growth on mobile)
+  const maxYesScale = isMobile ? 1.5 : 2.5;  // Max 1.5x on mobile, 2.5x on desktop
+  const yesScale = Math.min(maxYesScale, 1 + attempts * 0.08);  // Reduced from 0.12 to 0.08
   yesBtn.style.transform = `scale(${yesScale})`;
   yesBtn.style.zIndex = "10";
   yesBtn.style.position = "relative";
@@ -91,7 +92,7 @@ noBtn.addEventListener("mouseover", moveNoButton);
 
 // Mobile: touchstart
 noBtn.addEventListener("touchstart", (e) => {
-  e.preventDefault(); // Prevent default touch behavior
+  e.preventDefault();
   moveNoButton();
 });
 
@@ -105,13 +106,20 @@ yesBtn.addEventListener("click", () => {
         box-sizing: border-box;
       }
       
+      html, body {
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+      }
+      
       .success-container {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         min-height: 100vh;
-        width: 100vw;
+        min-height: -webkit-fill-available;
+        width: 100%;
         text-align: center;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         background-image: 
@@ -119,45 +127,56 @@ yesBtn.addEventListener("click", () => {
           url('https://images.unsplash.com/photo-1557683316-973673baf926?w=1600&q=80');
         background-size: cover;
         background-position: center;
+        background-attachment: fixed;
         color: white;
-        padding: 30px 20px;
+        padding: 20px;
         font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        overflow: hidden;
       }
       
       .success-content {
-        max-width: 600px;
+        max-width: 90%;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
       }
       
       .success-container h1 {
-        font-size: clamp(32px, 10vw, 56px);
+        font-size: clamp(28px, 8vw, 56px);
         font-weight: 700;
-        margin-bottom: 60px;
-        line-height: 1.2;
+        margin: 0 0 40px 0;
+        line-height: 1.3;
         animation: bounce 1s ease;
-        text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        width: 100%;
+        word-wrap: break-word;
       }
       
       .success-container h2 {
-        font-size: clamp(20px, 6vw, 32px);
+        font-size: clamp(18px, 5vw, 32px);
         font-weight: 500;
+        margin: 0;
         line-height: 1.4;
         animation: fadeInUp 1s ease 0.3s both;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        width: 100%;
+        word-wrap: break-word;
       }
       
       @keyframes bounce {
-        0%, 100% { 
-          transform: translateY(0); 
-          opacity: 1;
-        }
-        50% { 
-          transform: translateY(-25px); 
-        }
-        0% {
+        0% { 
           opacity: 0;
           transform: translateY(30px);
+        }
+        50% { 
+          transform: translateY(-20px); 
+        }
+        100% { 
+          transform: translateY(0); 
+          opacity: 1;
         }
       }
       
@@ -172,30 +191,53 @@ yesBtn.addEventListener("click", () => {
         }
       }
       
-      /* Mobile adjustments */
+      /* Mobile specific */
       @media (max-width: 480px) {
         .success-container {
-          padding: 20px 15px;
+          padding: 15px;
+          background-attachment: scroll;
+        }
+        
+        .success-content {
+          max-width: 95%;
         }
         
         .success-container h1 {
-          margin-bottom: 50px;
+          margin-bottom: 30px;
+          font-size: clamp(24px, 7vw, 40px);
+        }
+        
+        .success-container h2 {
+          font-size: clamp(16px, 4.5vw, 28px);
+        }
+      }
+      
+      /* Very small phones */
+      @media (max-width: 360px) {
+        .success-container h1 {
+          font-size: 22px;
+          margin-bottom: 25px;
+        }
+        
+        .success-container h2 {
+          font-size: 15px;
         }
       }
       
       /* Landscape mode */
       @media (max-height: 500px) and (orientation: landscape) {
         .success-container {
-          padding: 15px;
+          padding: 10px;
+          min-height: 100vh;
         }
         
         .success-container h1 {
-          margin-bottom: 30px;
-          font-size: clamp(24px, 8vw, 40px);
+          margin-bottom: 20px;
+          font-size: clamp(20px, 6vw, 36px);
         }
         
         .success-container h2 {
-          font-size: clamp(16px, 5vw, 24px);
+          font-size: clamp(14px, 4vw, 24px);
         }
       }
     </style>
