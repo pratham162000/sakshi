@@ -8,7 +8,7 @@ body {
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   min-height: 100vh;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   background-image: 
@@ -16,9 +16,10 @@ body {
     url('https://images.unsplash.com/photo-1557683316-973673baf926?w=1600&q=80');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
-  padding: 20px;
+  background-attachment: scroll;
+  padding: 15px;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .main {
@@ -27,15 +28,16 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   text-align: center;
-  animation: fadeIn 1s ease-in;
+  animation: fadeIn 0.8s ease-in;
+  margin: auto;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -46,58 +48,58 @@ body {
 .message-container {
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(10px);
-  border-radius: 24px;
-  padding: 45px 40px;
-  margin-bottom: 40px;
+  border-radius: 20px;
+  padding: 25px 20px;
+  margin-bottom: 20px;
   box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.15),
+    0 10px 30px rgba(0, 0, 0, 0.15),
     0 0 0 1px rgba(255, 255, 255, 0.5) inset;
   text-align: left;
-  line-height: 1.8;
+  line-height: 1.7;
   width: 100%;
 }
 
 .greeting {
   color: #5a67d8;
-  font-size: 32px;
-  margin-bottom: 25px;
+  font-size: 24px;
+  margin-bottom: 18px;
   font-weight: 600;
   text-align: center;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.3px;
 }
 
 .heartfelt-message {
   color: #2d3748;
-  font-size: 17px;
-  margin-bottom: 20px;
+  font-size: 14px;
+  margin-bottom: 14px;
   font-weight: 400;
-  line-height: 1.9;
-  text-align: justify;
+  line-height: 1.7;
+  text-align: left;
 }
 
 .final-thought {
   color: #5a67d8;
   font-weight: 500;
   text-align: center;
-  font-size: 19px;
-  margin-top: 30px;
+  font-size: 15px;
+  margin-top: 18px;
   margin-bottom: 0;
-  padding-top: 20px;
+  padding-top: 15px;
   border-top: 2px solid #e2e8f0;
 }
 
 #question {
-  font-size: 28px;
+  font-size: 19px;
   color: #ffffff;
-  margin-bottom: 35px;
+  margin-bottom: 20px;
   text-align: center;
   font-weight: 600;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
-  padding: 25px 30px;
-  border-radius: 16px;
-  line-height: 1.5;
+  padding: 18px 15px;
+  border-radius: 14px;
+  line-height: 1.4;
   width: 100%;
 }
 
@@ -105,22 +107,23 @@ body {
   position: relative;
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 12px;
   flex-wrap: wrap;
   width: 100%;
+  margin-bottom: 20px;
 }
 
 button {
-  padding: 16px 45px;
-  font-size: 18px;
+  padding: 13px 30px;
+  font-size: 15px;
   font-weight: 500;
   border: none;
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: 'Poppins', sans-serif;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  letter-spacing: 0.3px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  letter-spacing: 0.2px;
 }
 
 #yesBtn {
@@ -129,12 +132,12 @@ button {
 }
 
 #yesBtn:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 12px 30px rgba(72, 187, 120, 0.4);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(72, 187, 120, 0.4);
 }
 
 #yesBtn:active {
-  transform: translateY(-1px) scale(1.02);
+  transform: translateY(0) scale(1);
 }
 
 #noBtn {
@@ -144,28 +147,28 @@ button {
 }
 
 #noBtn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(160, 174, 192, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(160, 174, 192, 0.4);
 }
 
 #noBtn:active {
-  transform: translateY(-1px);
+  transform: translateY(0);
 }
 
 .button_will_react {
   /* This class is for your JavaScript to target */
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Tablet adjustments */
+@media (min-width: 481px) and (max-width: 768px) {
   body {
-    padding: 15px;
+    padding: 20px;
   }
 
   .message-container {
     padding: 30px 25px;
-    border-radius: 20px;
-    margin-bottom: 30px;
+    border-radius: 22px;
+    margin-bottom: 25px;
   }
   
   .greeting {
@@ -175,19 +178,17 @@ button {
   
   .heartfelt-message {
     font-size: 15px;
-    text-align: left;
     margin-bottom: 16px;
   }
 
   .final-thought {
-    font-size: 17px;
-    margin-top: 25px;
-    padding-top: 15px;
+    font-size: 16px;
+    margin-top: 20px;
   }
   
   #question {
-    font-size: 22px;
-    padding: 20px 20px;
+    font-size: 21px;
+    padding: 20px 18px;
     margin-bottom: 25px;
   }
   
@@ -201,64 +202,216 @@ button {
   }
 }
 
-@media (max-width: 480px) {
+/* Large tablets and small desktops */
+@media (min-width: 769px) {
+  body {
+    padding: 30px;
+  }
+
   .message-container {
-    padding: 25px 20px;
+    padding: 35px 30px;
+    border-radius: 24px;
+    margin-bottom: 30px;
+  }
+  
+  .greeting {
+    font-size: 28px;
+    margin-bottom: 22px;
+  }
+  
+  .heartfelt-message {
+    font-size: 16px;
+    margin-bottom: 18px;
+    text-align: justify;
+  }
+
+  .final-thought {
+    font-size: 17px;
+    margin-top: 25px;
+  }
+  
+  #question {
+    font-size: 24px;
+    padding: 22px 25px;
+    margin-bottom: 30px;
+  }
+  
+  button {
+    padding: 15px 40px;
+    font-size: 17px;
+  }
+
+  .container {
+    gap: 18px;
+  }
+}
+
+/* Large desktops */
+@media (min-width: 1024px) {
+  .message-container {
+    padding: 45px 40px;
+    margin-bottom: 40px;
+  }
+  
+  .greeting {
+    font-size: 32px;
+    margin-bottom: 25px;
+  }
+  
+  .heartfelt-message {
+    font-size: 17px;
+    margin-bottom: 20px;
+  }
+
+  .final-thought {
+    font-size: 19px;
+    margin-top: 30px;
+  }
+  
+  #question {
+    font-size: 28px;
+    padding: 25px 30px;
+    margin-bottom: 35px;
+  }
+  
+  button {
+    padding: 16px 45px;
+    font-size: 18px;
+  }
+
+  .container {
+    gap: 20px;
+  }
+}
+
+/* Extra small phones (320px - 375px) */
+@media (max-width: 375px) {
+  body {
+    padding: 12px;
+  }
+
+  .message-container {
+    padding: 20px 16px;
+    border-radius: 18px;
+    margin-bottom: 16px;
   }
 
   .greeting {
-    font-size: 24px;
+    font-size: 22px;
+    margin-bottom: 15px;
   }
 
   .heartfelt-message {
+    font-size: 13px;
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+
+  .final-thought {
     font-size: 14px;
+    margin-top: 15px;
+    padding-top: 12px;
   }
 
   #question {
-    font-size: 20px;
-    padding: 18px 15px;
+    font-size: 17px;
+    padding: 15px 12px;
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  button {
+    padding: 12px 25px;
+    font-size: 14px;
+    width: 100%;
+    max-width: 250px;
   }
 
   .container {
     flex-direction: column;
     align-items: center;
-    gap: 12px;
-  }
-  
-  button {
-    width: 100%;
-    max-width: 280px;
-    padding: 14px 30px;
-    font-size: 16px;
+    gap: 10px;
   }
 }
 
-/* Extra small devices */
-@media (max-width: 360px) {
+/* Very small phones (< 320px) */
+@media (max-width: 320px) {
+  body {
+    padding: 10px;
+  }
+
   .message-container {
-    padding: 20px 15px;
+    padding: 18px 14px;
   }
 
   .greeting {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .heartfelt-message {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .final-thought {
     font-size: 13px;
   }
 
   #question {
-    font-size: 18px;
+    font-size: 16px;
+    padding: 14px 10px;
+  }
+
+  button {
+    padding: 11px 20px;
+    font-size: 13px;
   }
 }
 
-/* Print styles (optional) */
-@media print {
+/* Landscape mode on phones */
+@media (max-height: 500px) and (orientation: landscape) {
   body {
-    background: white;
+    padding: 10px;
+    justify-content: flex-start;
+  }
+
+  .main {
+    margin: 10px auto;
+  }
+
+  .message-container {
+    padding: 15px;
+    margin-bottom: 12px;
+  }
+
+  .greeting {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .heartfelt-message {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .final-thought {
+    font-size: 13px;
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+
+  #question {
+    font-size: 16px;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 13px;
   }
 
   .container {
-    display: none;
+    gap: 8px;
   }
 }
